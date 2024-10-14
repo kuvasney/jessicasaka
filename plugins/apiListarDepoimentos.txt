@@ -1,0 +1,13 @@
+export default defineNuxtPlugin(nuxtApp => {
+  const config = useRuntimeConfig()
+  const router = useRouter()
+
+  nuxtApp.apiListarDepoimentos = async () => {
+    try {
+      const url = `${ config.public.baseUrl }/public/depoimentos`
+      return await $fetch(url, {method: 'GET'})
+    } catch (error) {
+      console.log('Erro', error);
+    }
+  }
+})

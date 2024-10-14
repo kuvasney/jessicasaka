@@ -1,0 +1,166 @@
+  <div>
+    <section class="image-presentation">
+    </section>
+    <hr class="coluna">
+    <article id="quem-somos" class="sect center">
+      <div class="quem-somos__bg"></div>
+      <div class="imgbg"></div>
+      <div class="sitecont">
+        <h2 class="rTtl handwriting">
+          QUEM É JÉSSICA SAKA?
+        </h2>
+        <p>
+          Formada em <b>design de interiores</b> em 2009 e <b>técnica em edificações</b> em 2020, iniciou seus trabalhos autorais em 2014, somando já mais de 100 atendimentos entre projetos, consultorias e acompanhamento de obras. Possui em seu histórico alguns ambientes assinados.</p>
+        <p>
+          Sua principal característica é aliar conforto à funcionalidade, adequando as necessidades do cliente ao custo final!
+        </p>
+      </div>
+    </article>
+    <hr class="coluna">
+    <article id="projetos" v-if="projectList">
+      <div class="sitecont">
+        <h2 class="rTtl handwriting">
+          ÚLTIMOS PROJETOS
+        </h2>
+        <ul class="last-projects">
+          <li v-for="(project, index) of projectList">
+            <img :src="`/uploads/obras/${project.fotos[0].nomeArquivo}`" :alt="project.nome">
+            <div class="last-projects__details">
+              <p class="top-line">
+                {{ project.tipo }}
+              </p>
+              <h4 class="last-projects__name handwriting">
+                {{ project.nome }}
+              </h4>
+              <p class="last-projects__place">
+                {{ project.local }}
+              </p>
+              <p class="last-projects__description">
+                {{ project.descricao }}
+              </p>
+              <router-link class="link_button" :to="`projetos/${project.id}`">
+                Ver projeto
+              </router-link>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article class="nossos-diferenciais">
+      <div class="sitecont">
+        <h2 class="rTtl handwriting">
+          DIFERENCIAIS
+        </h2>
+        <ul class="nossos-diferenciais__list">
+          <li>
+            <span class="icon-star-full"></span>
+            <h3>
+              FORNECEDORA DE CONFIANÇA
+            </h3>
+            <p>
+              com parceiros de obra responsáveis!
+            </p>
+          </li>
+          <li>
+            <span class="icon-mao-na-massa"></span>
+            <h3>
+              MÃO NA MASSA
+            </h3>
+            <p>
+              criando sempre um detalhe exclusivo para você no final do projeto (com as próprias mãos)
+            </p>
+          </li><li>
+            <span class="icon-coffeecup"></span>
+            <h3>
+              EXPERIÊNCIAS ÚNICAS
+            </h3>
+            <p>
+              são criadas para cada cliente. Você não é "mais um"!
+            </p>
+          </li>
+          <li>
+            <span class="icon-checkmark"></span>
+            <h3>
+              MÉTODO EXCLUSIVO
+            </h3>
+            <p>
+              e o melhor: os valores podem ser adaptados
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article id="com-o-que-trabalhamos">
+      <div class="ttlWrap">
+        <h2 class="rTtl">
+          <span>
+            <b>Com  que trabalhamos?</b> <br>
+          </span>
+        </h2>
+        <h3 class="rTtl alt">
+          <span>
+            Projetos corporativos e residenciais
+          </span>
+        </h3>
+      </div>
+      <ul class="com-o-que-trabalhamos__list">
+        <li class="projeto">
+          <i class="icon-pencil"></i>
+          <h3 class="handwriting">PROJETO EXCLUSIVO</h3>
+          <p>​O Projeto inclui algumas etapas. São elas:</p>
+          <ul>
+            <li>Briefing</li>
+            <li>Levantamento das medidas</li>
+            <li>Ante-projeto (render)</li>
+          </ul>
+          <p>Depois do render, você vai enxergar direitinho como o projeto ficará após pronto - com imagens bem reais.</p>
+          <p>E a partir disso... Mãos a obra!</p>
+        </li>
+        <li class="obra">
+          <i class="icon-obra"></i>
+          <h3 class="handwriting">ACOMPANHAMENTO DE OBRA</h3>
+          <p>Realizamos um cronograma de visitas na obra e planilha de orçamentos. Assim, nada escapa do nosso controle!</p>
+          <p>
+            <b class="hashtag">
+              #zerodordecabeça
+            </b>
+          </p>
+        </li>
+        <li class="decoracao">
+          <i class="icon-light"></i>
+          <h3 class="handwriting">
+            DECORAÇÃO &amp; AMBIENTAÇÃO
+          </h3>
+          <p>
+            Se você estiver com a casa precisando de um "UP", conte com a gente para decorar tudo - sem necessariamente entrar em
+            reformas pesadas.
+          </p>
+        </li>
+        <li class="consultoria">
+            <i class="icon-bubble"></i>
+            <h3 class="handwriting">CONSULTORIA</h3>
+            <p>Trabalhamos com consultorias presenciais e online.</p>
+            <p>Podemos te ajudar no layout e no que mais precisar!</p>
+        </li>
+      </ul>
+    </article>
+    <!-- <article id="depoimentos" v-if="testimonials.length > 0">
+      <div class="bg">
+        <h2 class="rTtl handwriting">
+          <span>
+            O que os clientes <b>dizem</b>?
+          </span>
+        </h2>
+        <section class="clients-testimonials">
+          <ul>
+            <li v-for="testimonial in testimonials">
+              <span class="handwriting">{{ testimonial.author }}{{ testimonial.job ? `, ${testimonial.job}` : '' }}</span>
+              <p>
+                {{ testimonial.testimonial }}
+              </p>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </article> -->
+  </div>
