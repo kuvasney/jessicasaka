@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
     } catch (error) {
       setResponseStatus(event, 401);
       return {
-        message: 'Token inválido ou expirado. ' + error.message
+        message: 'Token inválido ou expirado. ' + error.message + ' ' + process.env.JWT_SECRET
       };
     }
   }
