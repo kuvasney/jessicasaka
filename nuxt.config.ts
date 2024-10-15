@@ -1,5 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap', onload: 'this.onload=null;this.removeAttribute("media");', fetchpriority: 'high' }
+      ],
+      script: [
+        { src: '//titulares.becompliance.com/becompliance.js', defer: true, async: true },
+      ]
+    }
+  },
   runtimeConfig: { // Default to an empty string, automatically set at runtime using process.env.NUXT_API_KEY
     secret: process.env.NUXT_ENV_MAINT,
     public: {
