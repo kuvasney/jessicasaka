@@ -9,7 +9,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.apiValidarUsuario = async (user: User): Promise<void> => {
 
     const apiToken = localStorage.getItem('apiToken')
-    console.log('apiToken', apiToken);
     const url = `${ config.public.baseUrl }/usuarios/validarUsuario`
     const params = {
       email: user.email

@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig()
   // Aplica o middleware apenas nas rotas da API
   if (event.node.req.url.startsWith('/api')) {
     // const publicRoutes = ['/api/public/login', '/api/public/obras', '/api/public/contato']; // Defina as rotas públicas
@@ -27,12 +28,12 @@ export default defineEventHandler(async (event) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, config.JWT_SECRET);
       event.context.user = decoded;
     } catch (error) {
       setResponseStatus(event, 401);
       return {
-        message: 'Token inválido ou expirado. ' + error.message + ' ' + process.env.JWT_SECRET
+        message: 'Token inválido ou expirado. ' + error.message + ' ' + config.JWT_SECRET
       };
     }
   }
