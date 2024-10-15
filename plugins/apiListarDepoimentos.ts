@@ -13,7 +13,12 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.apiListarDepoimentos = async ():Promise<Depoimento[] | undefined> => {
     try {
       const url = `${ config.public.baseUrl }/public/depoimentos`
-      return await $fetch(url, {method: 'GET'})
+      const res: any = await $fetch(url, { method: 'GET' })
+      if (res.data) {
+        return res.data
+      } else {
+        throw new Error('Retorno da api vazio')
+      }
     } catch (error: any) {
       console.log('Erro', error);
     }

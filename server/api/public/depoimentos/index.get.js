@@ -2,10 +2,10 @@ import { DepoimentosModel } from "../../depoimentos/model"
 
 export default defineEventHandler(async (event) => {
   try {
-    const depoimentos = await DepoimentosModel.find()
+    const data = await DepoimentosModel.find()
 
     return {
-      ...depoimentos
+      data
     }
   } catch (err) {
     return {

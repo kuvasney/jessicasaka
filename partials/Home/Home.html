@@ -150,8 +150,8 @@
         </li>
       </ul>
     </article>
-    <!-- <article id="depoimentos" v-if="testimonials.length > 0">
-      <div class="bg">
+    <article id="depoimentos">
+      <div class="bg" v-if="depoimentosList?.length > 0">
         <h2 class="rTtl handwriting">
           <span>
             O que os clientes <b>dizem</b>?
@@ -159,14 +159,20 @@
         </h2>
         <section class="clients-testimonials">
           <ul>
-            <li v-for="testimonial in testimonials">
-              <span class="handwriting">{{ testimonial.author }}{{ testimonial.job ? `, ${testimonial.job}` : '' }}</span>
+            <li v-for="depoimento in depoimentosList">
+              <span class="handwriting">{{ depoimento.nome }}{{ depoimento.referencia ? `, ${depoimento.referencia}` : ''
+                }}</span>
               <p>
-                {{ testimonial.testimonial }}
+                {{ depoimento.depoimento }}
               </p>
             </li>
           </ul>
         </section>
       </div>
-    </article> -->
+      <div class="sitecont" v-else>
+        <p class="loader">
+          <i class="icon-loading icon"></i>
+        </p>
+      </div>
+    </article>
   </div>

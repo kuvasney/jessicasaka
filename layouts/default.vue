@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { useLayoutStore } from '~/store/layout'
 // import { storeToRefs } from 'pinia'
@@ -107,6 +107,8 @@ export default defineComponent({
     const route = useRoute()
     const layoutStore = useLayoutStore()
     const thisYear = ref(new Date().getFullYear())
+    const nuxtApp = useNuxtApp()
+    const enviarEmail: any = nuxtApp.apiEnviarEmail
 
     let contact = ref({
       name: '',
@@ -115,9 +117,28 @@ export default defineComponent({
       message: ''
     })
     let isLoggedIn = ref(false)
-    let formSent = ref(false)
+    let formSent = ref()
 
     const init = () => {
+    }
+
+    const sendMail = async () => {
+      const params = contact.value
+      formSent.value = 'loading'
+      try {
+        await enviarEmail(params)
+        formSent.value = 'ok'
+        contact.value = {
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        }
+      } catch (err: any) {
+        formSent.value = 'error'
+        console.log('erro', err);
+      }
+
     }
 
     onMounted(() => {
@@ -125,6 +146,7 @@ export default defineComponent({
     })
 
     return {
+      sendMail,
       layoutStore,
       thisYear,
       isLoggedIn,
