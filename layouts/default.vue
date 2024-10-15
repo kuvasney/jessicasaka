@@ -3,7 +3,9 @@
     <Header />
   </div>
   <div class="maincontent">
-
+    <div class="loader pageloader" v-if="layoutStore.isLoading">
+      <i class="icon icon-spinner"></i>
+    </div>
     <slot />
 
     <footer class="main-footer" id="contato">
@@ -20,7 +22,7 @@
             contato@jessicasaka.com.br
           </p>
           <p>
-            SANTO ANDRÉ, SP
+            São Pedro, SP
           </p>
           <ul class="social">
             <!-- <li class="social-facebook">
@@ -50,7 +52,7 @@
           </ul>
         </section>
         <p>
-          &copy; {{ thisYear }} - Jéssica Saka e VIENA Comunicação.
+          &copy; {{ thisYear }} - Jéssica Saka
         </p>
       </div>
       <div class="side contact-form">
@@ -96,15 +98,15 @@
 
 <script>
 import { defineComponent } from 'vue'
-// import { useLayoutStore } from '~/store/layout'
+import { useLayoutStore } from '~/store/layout'
 // import { storeToRefs } from 'pinia'
 
 export default defineComponent({
   name: 'JSMainTemplate',
   setup() {
     const route = useRoute()
+    const layoutStore = useLayoutStore()
     const thisYear = ref(new Date().getFullYear())
-    let mobomenu = ref(false)
 
     let contact = ref({
       name: '',
@@ -115,27 +117,16 @@ export default defineComponent({
     let isLoggedIn = ref(false)
     let formSent = ref(false)
 
-    const sendMail = () => {
-      console.log('senmail',);
-    }
-
-    const logout = () => {
-      console.log('logout',);
-    }
-
     const init = () => {
     }
-
-    useHead({
-    })
 
     onMounted(() => {
       init()
     })
 
     return {
+      layoutStore,
       thisYear,
-      mobomenu,
       isLoggedIn,
       contact,
       formSent
