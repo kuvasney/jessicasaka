@@ -1,4 +1,7 @@
   <div>
+    <Head>
+      <Title>Jessica Saka Designer de Interiores</Title>
+    </Head>
     <section class="image-presentation">
     </section>
     <hr class="coluna">
@@ -23,7 +26,7 @@
           ÚLTIMOS PROJETOS
         </h2>
         <ul class="last-projects">
-          <li v-for="(project, index) of projectList">
+          <li v-for="(project, index) of projectList.slice(0, 2)">
             <img :src="`/uploads/obras/${project.fotos[0].nomeArquivo}`" :alt="project.nome">
             <div class="last-projects__details">
               <p class="top-line">
@@ -38,12 +41,15 @@
               <p class="last-projects__description">
                 {{ project.descricao }}
               </p>
-              <router-link class="link_button" :to="`projetos/${project.id}`">
+              <router-link class="link_button" :to="`projetos/${project.slug}`">
                 Ver projeto
               </router-link>
             </div>
           </li>
         </ul>
+        <router-link class="link_button" :to="`projetos`">
+          Ver todos os projetos
+        </router-link>
       </div>
     </article>
     <article class="nossos-diferenciais">

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const obras = await ObrasModel.find()
 
     return {
-      ...obras
+      obras
     }
   } catch(err) {
     return {
