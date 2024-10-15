@@ -33,6 +33,7 @@ import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
   name: 'LoginPage',
   setup() {
+    const config = useRuntimeConfig()
     const router = useRouter()
     const nuxtApp = useNuxtApp()
     const userLogin = nuxtApp.apiLogin
@@ -77,6 +78,10 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+
+    onMounted(() => {
+      console.log('NODE_ENV:', process.env.NODE_ENV)
+    })
 
     return {
       login,
