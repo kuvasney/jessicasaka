@@ -43,6 +43,7 @@ export default defineComponent({
     setup() {
       const router = useRouter()
       const isLoggedIn = ref()
+      let mobomenu = ref(false)
 
       const verificarLogin = () => {
         if (localStorage.getItem('email')) {
@@ -69,6 +70,7 @@ export default defineComponent({
 
       return {
         isLoggedIn,
+        mobomenu,
         logout
       }
     }
