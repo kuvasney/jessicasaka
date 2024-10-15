@@ -33,7 +33,6 @@ import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
   name: 'LoginPage',
   setup() {
-    const route = useRoute()
     const router = useRouter()
     const nuxtApp = useNuxtApp()
     const userLogin = nuxtApp.apiLogin

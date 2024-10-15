@@ -17,16 +17,16 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: { // Default to an empty string, automatically set at runtime using process.env.NUXT_API_KEY
-    secret: process.env.NUXT_ENV_MAINT,
     public: {
       baseUrl: process.env.NUXT_ENV_API,
+      JWT_SECRET: process.env.JWT_SECRET,
+      EMAIL_HOST: process.env.EMAIL_HOST,
+      EMAIL_PWD: process.env.EMAIL_PWD,
+      EMAIL_USER: process.env.EMAIL_USER
     },
     MONGODB_USERNAME: process.env.MONGODB_USERNAME,
     MONGODB_PASSWORD: process.env.MONGODB_PASSWORD,
-    JWT_SECRET: process.env.JWT_SECRET,
-    EMAIL_HOST: process.env.EMAIL_HOST,
-    EMAIL_PWD: process.env.EMAIL_PWD,
-    EMAIL_USER: process.env.EMAIL_USER
+    JWT_SECRET: process.env.JWT_SECRET
   },
 
   vite: {

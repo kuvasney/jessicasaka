@@ -2,7 +2,6 @@ import { DepoimentosModel } from './model';
 import authMiddleware from '../../middleware/auth';
 
 export default defineEventHandler(async (event) => {
-  console.log('depoimentos', );
   try {
     // Aplica o middleware para verificar o token JWT
     await authMiddleware(event);
