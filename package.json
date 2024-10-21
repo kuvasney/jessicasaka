@@ -11,7 +11,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prepare": "husky",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.5",

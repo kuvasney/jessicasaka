@@ -43,7 +43,6 @@
               </p>
               <button type="submit">Desenhar</button>
             </form>
-            {{ comodoMaior }}
 
             <hr>
 
@@ -152,32 +151,105 @@ export default defineComponent({
 
 
     const desenharComodoMaior = () => {
-      const cm = { "nome": "Sala", "quantidadeParedes": 0, "paredes": [{ "parede": 0, "medida": 400 }, { "parede": 1, "medida": 400 }, { "parede": 2, "medida": 200 }, { "parede": 3, "medida": 100 }, { "parede": 4, "medida": 100 }, { "parede": 5, "medida": 200 }] }
-      let pontos = []
-      // ponto A
-      pontos.push({ X: 0, y: cm.paredes[0].medida })
-      pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
-      pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
+      console.log('comodoMaior', comodoMaior.value);
+      // const cm = { "nome": "Sala", "quantidadeParedes": 0, "paredes": [{ "parede": 0, "medida": 400 }, { "parede": 1, "medida": 400 }, { "parede": 2, "medida": 200 }, { "parede": 3, "medida": 100 }, { "parede": 4, "medida": 100 }, { "parede": 5, "medida": 200 }] }
+      // { "nome": "Sala", "quantidadeParedes": 0, "paredes": [{ "parede": 0, "medida": 500 }, { "parede": 1, "medida": 500 }, { "parede": 2, "medida": 200 }, { "parede": 3, "medida": 200 }, { "parede": 4, "medida": 300 }, { "parede": 5, "medida": 300 }] }
+      // let pontos = []
+      // // ponto A
+      // pontos.push({ X: 0, y: cm.paredes[0].medida })
+      // pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
+      // pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
 
       if (canvas.getContext) {
-        ctx.fillStyle = 'black'
+
         // ctx.strokeRect(eixos.value.x, eixos.value.y, comodo.value.largura, comodo.value.largura)
+        /*
+        ctx.moveTo(0, 0)
+        ctx.lineTo(0, medida-parede-1) // a primeira parede desce, então altera apenas o Y
+        ctx.lineTo(medida-parede-2 ,medida-parede-1) // a segunda parede deve manter o Y e mover apenas o X
+        ctx.lineTo(medida-parede-2 ,medida-parede-3 - medida-parede-1) // a terceira parede vai subir. Mantem o X e move o Y para cima, subtraindo a medida da parede 1  pela medida da parede 3
+        ctx.lineTo(medida-parede-2 - medida-parede-4, medida-parede-1) // a quarta parede vai mover o X para trás. O Y mantém e subtrai a medida da parede 2 por parede 4
+        ctx.lineTo(medida-parede-2 - medida-parede-4, medida-parede-1 - medida-parede-5) // a quinta parede subir. Mantem o X onde está e subtrai parede 1 por parede 5
+        ctx.lineTo(0, 0) // a última parede volta pro início
+        */
+      //  Desenho de 6 paredes
+        comodoMaior.value = {
+          "nome": "Sala",
+            "quantidadeParedes": 0,
+              "paredes": [
+                {
+                  "parede": 0,
+                  "medida": 600
+                },
+                {
+                  "parede": 1,
+                  "medida": 600
+                },
+                {
+                  "parede": 2,
+                  "medida": 500
+                },
+                {
+                  "parede": 3,
+                  "medida": 500
+                },
+                {
+                  "parede": 4,
+                  "medida": 100
+                },
+                {
+                  "parede": 5,
+                  "medida": 100
+                }
+              ]
+        }
+
+        ctx.fillStyle = 'black'
         ctx.font = '10px Arial'
         ctx.beginPath()
         ctx.moveTo(0, 0)
-        ctx.lineTo(0, 400)
+
+        ctx.lineTo(0, comodoMaior.value.paredes[0].medida) // a primeira parede desce, então altera apenas o Y
+        ctx.fillText('Parede: 1', 10, (comodoMaior.value.paredes[0].medida / 2))
+
+        ctx.lineTo(comodoMaior.value.paredes[1].medida, comodoMaior.value.paredes[0].medida) // a segunda parede deve manter o Y e mover apenas o X
+        ctx.fillText('Parede: 2', (comodoMaior.value.paredes[1].medida / 2), comodoMaior.value.paredes[1].medida - 10)
+
+        ctx.lineTo(comodoMaior.value.paredes[1].medida, comodoMaior.value.paredes[0].medida - comodoMaior.value.paredes[2].medida) // a terceira parede vai subir. Mantem o X e move o Y para cima, subtraindo a medida da parede 1  pela medida da parede 3
+        ctx.fillText('Parede: 3', comodoMaior.value.paredes[1].medida + 10, (comodoMaior.value.paredes[0].medida - comodoMaior.value.paredes[2].medida) + ((comodoMaior.value.paredes[0].medida - comodoMaior.value.paredes[2].medida) / 2))
+
+        ctx.lineTo(comodoMaior.value.paredes[1].medida - comodoMaior.value.paredes[3].medida, comodoMaior.value.paredes[0].medida - comodoMaior.value.paredes[2].medida) // a quarta parede vai mover o X para trás. O Y mantém e subtrai a medida da parede 2 por parede 4
+        ctx.fillText('Parede: 4', (comodoMaior.value.paredes[1].medida - comodoMaior.value.paredes[3].medida) * 2, (comodoMaior.value.paredes[0].medida - comodoMaior.value.paredes[2].medida) - 10)
+
+        ctx.lineTo(comodoMaior.value.paredes[1].medida - comodoMaior.value.paredes[3].medida, 0)  // a quinta parede vai subir. Mantem o X onde está e volta o Y para 0
+        ctx.fillText('Parede: 5', (comodoMaior.value.paredes[1].medida - comodoMaior.value.paredes[3].medida) + 10, comodoMaior.value.paredes[4].medida / 2)
+
+        ctx.lineTo(0, 0)
+        ctx.fillText('Parede: 6', 10, 10)
+
+        ctx.stroke();
+
+
+        /*
+        ctx.font = '10px Arial'
+        ctx.beginPath()
+        ctx.moveTo(10, 10)
+        ctx.lineTo(10, 410)
         ctx.fillText('parede 1', 0, 400)
-        ctx.lineTo(400, 400)
+        ctx.lineTo(410, 410)
         ctx.fillText('parede 2', 400, 400)
-        ctx.lineTo(400, 300)
+        ctx.lineTo(410, 310)
         ctx.fillText('parede 3', 400, 300)
-        ctx.lineTo(300, 300)
+        ctx.lineTo(310, 310)
         ctx.fillText('parede 4', 300, 300)
-        ctx.lineTo(300, 0)
+        ctx.lineTo(310, 10)
         ctx.fillText('parede 5', 400, 300)
+        ctx.lineTo(10, 10)
         // ctx.lineTo(200, 100)
 
-        ctx.fill()
+        ctx.stroke();
+
+        */
         // ctx.lineTo(comodoMaior.paredes[0].medida, comodoMaior.paredes[1].medida)
         // ctx.lineTo(comodoMaior.paredes[1].medida, comodoMaior.paredes[2].medida)
         // ctx.lineTo(comodoMaior.paredes[1].medida, comodoMaior.paredes[3].medida - comodoMaior.paredes[2].medida)
