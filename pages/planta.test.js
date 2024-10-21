@@ -13,6 +13,7 @@ describe('Planta', () => {
       lineTo: vi.fn(),
       fillText: vi.fn(),
       fill: vi.fn(),
+      stroke: vi.fn()
     }));
 
     // Simula um canvas no DOM com o getContext mockado
