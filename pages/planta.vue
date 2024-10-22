@@ -58,12 +58,15 @@
               <p>
                 em qual parede:
                 <select name="paredes" id="paredes" v-model="abertura.parede">
-                  <option value="A">A</option>
+                  <option :value="index + 1" v-for="(parede, index) in numeroParedes" :key="index">Parede {{ index + 1
+                    }}</option>
+                  <!-- <option value="A">A</option>
                   <option value="B">B</option>
                   <option value="C">C</option>
-                  <option value="D">D</option>
+                  <option value="D">D</option> -->
                 </select>
               </p>
+              {{ abertura.parede }}
               <p>
                 largura do item em cm: <input type="number" id="doorW" v-model="abertura.largura" />
               </p>
@@ -151,15 +154,6 @@ export default defineComponent({
 
 
     const desenharComodoMaior = () => {
-      console.log('comodoMaior', comodoMaior.value);
-      // const cm = { "nome": "Sala", "quantidadeParedes": 0, "paredes": [{ "parede": 0, "medida": 400 }, { "parede": 1, "medida": 400 }, { "parede": 2, "medida": 200 }, { "parede": 3, "medida": 100 }, { "parede": 4, "medida": 100 }, { "parede": 5, "medida": 200 }] }
-      // { "nome": "Sala", "quantidadeParedes": 0, "paredes": [{ "parede": 0, "medida": 500 }, { "parede": 1, "medida": 500 }, { "parede": 2, "medida": 200 }, { "parede": 3, "medida": 200 }, { "parede": 4, "medida": 300 }, { "parede": 5, "medida": 300 }] }
-      // let pontos = []
-      // // ponto A
-      // pontos.push({ X: 0, y: cm.paredes[0].medida })
-      // pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
-      // pontos.push({ X: cm.paredes[1].medida, y: cm.paredes[0].medida })
-
       if (canvas.getContext) {
 
         // ctx.strokeRect(eixos.value.x, eixos.value.y, comodo.value.largura, comodo.value.largura)
@@ -172,37 +166,6 @@ export default defineComponent({
         ctx.lineTo(medida-parede-2 - medida-parede-4, medida-parede-1 - medida-parede-5) // a quinta parede subir. Mantem o X onde está e subtrai parede 1 por parede 5
         ctx.lineTo(0, 0) // a última parede volta pro início
         */
-      //  Desenho de 6 paredes
-        comodoMaior.value = {
-          "nome": "Sala",
-            "quantidadeParedes": 0,
-              "paredes": [
-                {
-                  "parede": 0,
-                  "medida": 600
-                },
-                {
-                  "parede": 1,
-                  "medida": 600
-                },
-                {
-                  "parede": 2,
-                  "medida": 500
-                },
-                {
-                  "parede": 3,
-                  "medida": 500
-                },
-                {
-                  "parede": 4,
-                  "medida": 100
-                },
-                {
-                  "parede": 5,
-                  "medida": 100
-                }
-              ]
-        }
 
         ctx.fillStyle = 'black'
         ctx.font = '10px Arial'
@@ -228,45 +191,7 @@ export default defineComponent({
         ctx.fillText('Parede: 6', 10, 10)
 
         ctx.stroke();
-
-
-        /*
-        ctx.font = '10px Arial'
-        ctx.beginPath()
-        ctx.moveTo(10, 10)
-        ctx.lineTo(10, 410)
-        ctx.fillText('parede 1', 0, 400)
-        ctx.lineTo(410, 410)
-        ctx.fillText('parede 2', 400, 400)
-        ctx.lineTo(410, 310)
-        ctx.fillText('parede 3', 400, 300)
-        ctx.lineTo(310, 310)
-        ctx.fillText('parede 4', 300, 300)
-        ctx.lineTo(310, 10)
-        ctx.fillText('parede 5', 400, 300)
-        ctx.lineTo(10, 10)
-        // ctx.lineTo(200, 100)
-
-        ctx.stroke();
-
-        */
-        // ctx.lineTo(comodoMaior.paredes[0].medida, comodoMaior.paredes[1].medida)
-        // ctx.lineTo(comodoMaior.paredes[1].medida, comodoMaior.paredes[2].medida)
-        // ctx.lineTo(comodoMaior.paredes[1].medida, comodoMaior.paredes[3].medida - comodoMaior.paredes[2].medida)
-        // ctx.lineTo(comodoMaior.paredes[1].medida, comodoMaior.paredes[3].medida - comodoMaior.paredes[2].medida)
-
-
-        // ctx.font = '10px Arial'
-        // ctx.fillText('' + comodo.value.nome + ' (área: ' + comodo.value.largura + ' x ' + comodo.value.largura + ')', eixos.value.x + 10, eixos.value.y + 10)
-
-        // eixos.value.x = comodo.value.largura
-        // eixos.value.y = comodo.value.altura
-        // paredes.value.A = { x: 0, y: comodo.value.altura }
-        // paredes.value.B = { x: 0, y: comodo.value.largura }
-        // paredes.value.C = { x: comodo.value.altura, y: comodo.value.largura }
-        // paredes.value.D = { x: comodo.value.altura, y: 0 }
-
-        // comodoDesenhado.value = true
+        comodoDesenhado.value = true
 
       } else {
         alert('não suportado')
@@ -290,7 +215,7 @@ export default defineComponent({
 
     const drawDoor = () => {
       let color = 'red'
-      const porta = 8
+      const porta = 4
 
       if (abertura.value.tipo === 'janela') {
         color = 'blue'
@@ -304,27 +229,58 @@ export default defineComponent({
         if (paredes.value.hasOwnProperty(abertura.parede)) {
           _parede = paredes[abertura.value.abertura.value.parede]
         }
-
+        console.log('abertura.value.largura', abertura.value.largura);
         _distancia = function () {
-          switch (abertura.value.parede) {
-            case 'A':
-              return { x: 0 - (porta / 2), y: abertura.value.distancia, w: porta, h: abertura.value.largura, textoX: porta, textoY: (abertura.value.distancia + (abertura.value.distancia / 2)), textAlign: 'center' }
-              break;
+          if (numeroParedes.value === 4) {
+            switch (abertura.value.parede) {
+              case 1:
+                return { x: 0 - (porta / 2), y: abertura.value.distancia, w: porta, h: abertura.value.largura, textoX: porta, textoY: (abertura.value.distancia + (abertura.value.distancia / 2)), textAlign: 'center' }
+                break;
 
-            case 'B':
-              return { x: abertura.value.distancia, y: 0 - (porta / 2), w: abertura.value.largura, h: porta, textoX: (abertura.value.distancia), textoY: porta * 2, textAlign: 'center' }
-              break;
+              case 2:
+                return { x: abertura.value.distancia, y: 0 - (porta / 2), w: abertura.value.largura, h: porta, textoX: (abertura.value.distancia), textoY: porta * 2, textAlign: 'center' }
+                break;
 
-            case 'C':
-              return { x: paredes.value.C.y - (porta / 2), y: abertura.value.distancia, w: porta, h: abertura.value.largura, textoX: paredes.value.C.y - 60, textoY: (abertura.value.distancia + (abertura.value.distancia / 2)), textAlign: 'center' }
-              break;
+              case 3:
+                return { x: paredes.value.C.y - (porta / 2), y: abertura.value.distancia, w: porta, h: abertura.value.largura, textoX: paredes.value.C.y - 60, textoY: (abertura.value.distancia + (abertura.value.distancia / 2)), textAlign: 'center' }
+                break;
 
-            case 'D':
-              return { x: abertura.value.distancia, y: paredes.value.D.x - (porta / 2), w: abertura.value.largura, h: porta, textoX: abertura.value.distancia, textoY: paredes.value.D.x - porta, textAlign: 'center' }
-              break;
+              case 4:
+                return { x: abertura.value.distancia, y: paredes.value.D.x - (porta / 2), w: abertura.value.largura, h: porta, textoX: abertura.value.distancia, textoY: paredes.value.D.x - porta, textAlign: 'center' }
+                break;
+            }
+          } else if (numeroParedes.value === 6) {
+            switch (abertura.value.parede) {
+              case 1:
+                return { x: 0, y: comodoMaior.value.paredes[0].medida - abertura.value.distancia - abertura.value.largura, w: porta, h: abertura.value.largura, textoX: porta + 10, textoY: (comodoMaior.value.paredes[0].medida - abertura.value.distancia - abertura.value.largura) + 10, textAlign: 'center' }
+                break;
+
+              case 2:
+                return { x: comodoMaior.value.paredes[1].medida - abertura.value.distancia - abertura.value.largura, y: comodoMaior.value.paredes[0].medida - porta, w: abertura.value.largura, h: porta, textoX: paredes.value.C.y - 60, textoY: (abertura.value.distancia + (abertura.value.distancia / 2)), textAlign: 'center' }
+                break;
+
+                case 3:
+                return { x: comodoMaior.value.paredes[1].medida, y: comodoMaior.value.paredes[0].medida - abertura.value.largura - abertura.value.distancia , w: porta, h: abertura.value.largura, textoX: (abertura.value.distancia), textoY: porta * 2, textAlign: 'center' }
+                break;
+
+              case 4:
+                return { x: abertura.value.distancia, y: paredes.value.D.x - (porta / 2), w: abertura.value.largura, h: porta, textoX: abertura.value.distancia, textoY: paredes.value.D.x - porta, textAlign: 'center' }
+                break;
+
+              case 5:
+                return { x: abertura.value.distancia, y: paredes.value.D.x - (porta / 2), w: abertura.value.largura, h: porta, textoX: abertura.value.distancia, textoY: paredes.value.D.x - porta, textAlign: 'center' }
+                break;
+
+              case 6:
+                return { x: abertura.value.distancia, y: paredes.value.D.x - (porta / 2), w: abertura.value.largura, h: porta, textoX: abertura.value.distancia, textoY: paredes.value.D.x - porta, textAlign: 'center' }
+                break;
+            }
+
           }
+
         }
-        ctx.strokeRect(_distancia().x, _distancia().y, _distancia().w, _distancia().h)
+        console.log('_distancia().x, _distancia().y, _distancia().w, _distancia().h', _distancia().x, _distancia().y, _distancia().w, _distancia().h);
+        ctx.fillRect(_distancia().x, _distancia().y, _distancia().w, _distancia().h)
 
         ctx.font = '10px Arial'
         ctx.textAlign = _distancia.textAlign;
@@ -333,7 +289,6 @@ export default defineComponent({
         ctx.fillText(abertura.value.tipo + ': ' + abertura.value.largura + 'cm', _distancia().textoX, _distancia().textoY)
 
       }
-
     }
 
     const limpar = () => {
@@ -351,11 +306,47 @@ export default defineComponent({
 
     }
 
+    const preencherComodo = () => {
+      //  Desenho de 6 paredes
+      comodoMaior.value = {
+        "nome": "Sala",
+        "quantidadeParedes": 0,
+        "paredes": [
+          {
+            "parede": 0,
+            "medida": 400
+          },
+          {
+            "parede": 1,
+            "medida": 300
+          },
+          {
+            "parede": 2,
+            "medida": 200
+          },
+          {
+            "parede": 3,
+            "medida": 100
+          },
+          {
+            "parede": 4,
+            "medida": 200
+          },
+          {
+            "parede": 5,
+            "medida": 200
+          }
+        ]
+      }
+      numeroParedes.value = 6
+      desenharComodoMaior()
+    }
+
     onMounted(() => {
       // init()
       canvas = board.value
       ctx = canvas.getContext('2d')
-      desenharComodoMaior()
+      preencherComodo()
     })
 
     return {
@@ -364,6 +355,7 @@ export default defineComponent({
       drawDoor,
       desenharComodoMaior,
       limpar,
+      preencherComodo,
       numeroParedes,
       comodoDesenhado,
       board,
