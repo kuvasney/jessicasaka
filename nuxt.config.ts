@@ -44,7 +44,11 @@ export default defineNuxtConfig({
 
   nitro: {
     plugins: ['~/server/index.ts'],
-    preset: 'aws-amplify'
+    preset: 'aws-amplify',
+    awsAmplify: {
+      imageOptimization: { path: '/_amplify/image', cacheControl: 'public, max-age=3600, immutable' },
+      imageSettings: { formats: ['image/webp', 'image/avif', 'image/png', 'image/jpeg'], domains: [], sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840], remotePatterns: [], minimumCacheTTL: 60 }
+    }
   },
 
   compatibilityDate: '2024-04-03',
