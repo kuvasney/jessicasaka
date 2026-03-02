@@ -36,7 +36,7 @@ export default async (_nitroApp: Nitro) => {
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 10000,
       connectTimeoutMS: 10000,
-    });
+    } as any);
 
     if (conn?.connection?.db) {
       await conn.connection.db.admin().ping();
