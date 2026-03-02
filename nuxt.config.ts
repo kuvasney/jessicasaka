@@ -16,7 +16,6 @@ export default defineNuxtConfig({
       ]
     }
   },
-  ssr: true,
   runtimeConfig: { // Default to an empty string, automatically set at runtime using process.env.NUXT_API_KEY
     public: {
       baseUrl: process.env.NUXT_ENV_API,
