@@ -43,7 +43,8 @@ export default defineNuxtConfig({
   css: ['@/assets/css/main.scss'],
 
   nitro: {
-    plugins: ['~/server/index.ts']
+    plugins: ['~/server/index.ts'],
+    preset: 'aws-amplify'
   },
 
   compatibilityDate: '2024-04-03',
